@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
@@ -15,6 +16,8 @@ import {
   Laptop,
   Sparkles,
   Zap,
+  Menu,
+  X,
 } from "lucide-react";
 
 function GitHubIcon({ size = 18, className = "" }) {
@@ -44,6 +47,8 @@ const profile = {
   github: "https://github.com/The-Kushal-Poudel",
   linkedin: "https://www.linkedin.com/in/kushal-poudel-317b25241/",
 };
+
+const navItems = ["Home", "About", "Skills", "Projects", "Experience", "Contact"];
 
 const aboutCards = [
   {
@@ -97,7 +102,7 @@ const projects = [
 
 const journey = [
   {
-    year: "7th January 2024 - 4th April 2024 (3 months)",
+    year: "7th January 2024 - 4th April 2024",
     title: "Backend Java Developer Intern",
     company: "FoneNxt",
     icon: Briefcase,
@@ -121,17 +126,32 @@ const journey = [
 
 const fadeUp = {
   hidden: { opacity: 0, y: 42, filter: "blur(10px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 const fadeLeft = {
   hidden: { opacity: 0, x: -50, filter: "blur(10px)" },
-  show: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
+  show: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 const fadeRight = {
   hidden: { opacity: 0, x: 50, filter: "blur(10px)" },
-  show: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
+  show: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 const stagger = {
@@ -238,10 +258,15 @@ function AnimatedTitle({ children, className = "" }) {
   );
 }
 
-function SocialButton({ children, href = "#" }) {
+function SocialButton({ children, href = "#", label = "Social link" }) {
+  const isExternal = href.startsWith("http");
+
   return (
     <motion.a
       href={href}
+      aria-label={label}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
       whileHover={{ y: -7, scale: 1.08, rotate: 4 }}
       whileTap={{ scale: 0.92 }}
       className="grid h-10 w-10 place-items-center rounded-full border border-[#e6ded0] bg-white text-[#151412] shadow-sm transition hover:border-[#b59a71] hover:text-[#b59a71]"
@@ -252,16 +277,16 @@ function SocialButton({ children, href = "#" }) {
 }
 
 function Header() {
-  const nav = ["Home", "About", "Skills", "Projects", "Experience", "Contact"];
+  const [open, setOpen] = useState(false);
 
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-      className="sticky top-0 z-50 border-b border-[#e6ded0]/80 bg-[#f8f3eb]/90 backdrop-blur-xl"
+      className="sticky top-0 z-[9999] border-b border-[#e6ded0]/80 bg-[#f8f3eb]/95 backdrop-blur-xl"
     >
-      <div className="mx-auto flex w-full max-w-[1180px] items-center justify-between px-5 py-4 lg:px-6">
+      <div className="mx-auto flex w-full max-w-screen-2xl items-center justify-between px-5 py-4 lg:px-8">
         <motion.a href="#home" whileHover={{ scale: 1.04 }} className="flex shrink-0 items-center gap-3">
           <motion.span
             animate={{ rotate: [0, 4, -4, 0] }}
@@ -276,7 +301,7 @@ function Header() {
         </motion.a>
 
         <nav className="hidden items-center gap-7 text-[13px] font-semibold text-[#332f29] md:flex">
-          {nav.map((item, index) => (
+          {navItems.map((item, index) => (
             <motion.a
               key={item}
               initial={{ opacity: 0, y: -14 }}
@@ -298,7 +323,37 @@ function Header() {
         >
           Let's Work Together <ArrowRight size={15} />
         </motion.a>
+
+        <button
+          type="button"
+          onClick={() => setOpen((prev) => !prev)}
+          aria-label="Toggle mobile menu"
+          className="relative z-[10000] flex h-11 w-11 items-center justify-center rounded-lg border border-[#151412]/20 bg-[#151412] text-white shadow-md md:hidden"
+        >
+          {open ? <X size={23} /> : <Menu size={23} />}
+        </button>
       </div>
+
+      {open && (
+        <motion.nav
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="absolute left-0 top-full z-[9998] w-full border-t border-[#e6ded0] bg-[#f8f3eb] px-5 py-4 shadow-xl md:hidden"
+        >
+          <div className="mx-auto grid max-w-screen-2xl gap-2">
+            {navItems.map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                onClick={() => setOpen(false)}
+                className="rounded-lg bg-white px-4 py-3 text-sm font-semibold text-[#332f29] transition hover:text-[#a78d67]"
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+        </motion.nav>
+      )}
     </motion.header>
   );
 }
@@ -314,7 +369,7 @@ function Hero() {
       <AnimatedBackground />
       <div className="absolute inset-0 opacity-[0.45] [background-image:radial-gradient(#d2c4ae_1px,transparent_1px)] [background-size:28px_28px]" />
 
-      <div className="relative mx-auto grid w-full max-w-[1180px] items-center gap-10 px-5 pb-14 pt-10 lg:grid-cols-[0.86fr_1.14fr] lg:px-6 lg:pb-16 lg:pt-14">
+      <div className="relative mx-auto grid w-full max-w-screen-2xl items-center gap-10 px-5 pb-14 pt-10 lg:grid-cols-[0.86fr_1.14fr] lg:px-8 lg:pb-16 lg:pt-14">
         <motion.div style={{ y: heroY }} variants={stagger} initial="hidden" animate="show">
           <motion.p variants={fadeUp} className="mb-5 flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.35em] text-[#a78d67]">
             <motion.span
@@ -325,24 +380,25 @@ function Hero() {
             {profile.role}
           </motion.p>
 
-          <AnimatedTitle className="max-w-[640px] font-serif text-[42px] leading-[1.02] tracking-tight text-[#1f1c18] sm:text-5xl lg:text-[64px]">
+          <AnimatedTitle className="max-w-[720px] font-serif text-[42px] leading-[1.02] tracking-tight text-[#1f1c18] sm:text-5xl lg:text-[70px]">
             I build digital experiences that are clean, fast & meaningful.
           </AnimatedTitle>
 
-          <motion.p variants={fadeUp} className="mt-5 max-w-[560px] text-[15px] leading-8 text-[#5f574d]">
+          <motion.p variants={fadeUp} className="mt-5 max-w-[620px] text-[15px] leading-8 text-[#5f574d]">
             BCA graduate focused on building Laravel applications, backend systems and modern full-stack web experiences using Java, PHP, SQL, React and Tailwind CSS.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row">
             <motion.a
               href={profile.cv}
-              download ="Kushal_Poudel_CV.pdf"
+              download="Kushal_Poudel_CV.pdf"
               whileHover={{ y: -5, scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
               className="inline-flex items-center justify-center gap-3 rounded-md bg-[#151412] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#292723]"
             >
               Download CV <Download size={16} />
             </motion.a>
+
             <motion.a
               href="#projects"
               whileHover={{ y: -5, scale: 1.03 }}
@@ -355,9 +411,15 @@ function Hero() {
 
           <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-4">
             <span className="text-[11px] font-black uppercase tracking-[0.28em] text-[#8c806f]">Follow me on</span>
-            <SocialButton href={profile.github}><GitHubIcon size={17} /></SocialButton>
-            <SocialButton href={profile.linkedin}><LinkedInIcon size={17} /></SocialButton>
-            <SocialButton href={`mailto:${profile.email}`}><Mail size={17} /></SocialButton>
+            <SocialButton href={profile.github} label="GitHub profile">
+              <GitHubIcon size={17} />
+            </SocialButton>
+            <SocialButton href={profile.linkedin} label="LinkedIn profile">
+              <LinkedInIcon size={17} />
+            </SocialButton>
+            <SocialButton href={`mailto:${profile.email}`} label="Send email">
+              <Mail size={17} />
+            </SocialButton>
           </motion.div>
         </motion.div>
 
@@ -366,7 +428,7 @@ function Hero() {
           initial={{ opacity: 0, scale: 0.88, rotate: 4, filter: "blur(12px)" }}
           animate={{ opacity: 1, scale: 1, rotate: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.95, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto min-h-[455px] w-full max-w-[610px] lg:mx-0"
+          className="relative mx-auto min-h-[455px] w-full max-w-[650px] lg:mx-0"
         >
           <FloatingChip delay={0.7} className="left-2 top-8 z-20">
             Laravel
@@ -403,9 +465,18 @@ function Hero() {
             className="absolute bottom-8 left-0 w-[92%] max-w-[410px] rounded-xl border border-white/10 bg-[#171614]/90 p-5 text-white shadow-2xl shadow-black/25 backdrop-blur-xl sm:left-8"
           >
             <div className="grid gap-4 text-sm">
-              <div className="flex items-center gap-4"><MapPin size={17} /><span className="text-white/80">{profile.location}</span></div>
-              <div className="flex items-center gap-4"><Mail size={17} /><span className="text-white/80">{profile.email}</span></div>
-              <div className="flex items-center gap-4"><Phone size={17} /><span className="text-white/80">{profile.phone}</span></div>
+              <div className="flex items-center gap-4">
+                <MapPin size={17} />
+                <span className="text-white/80">{profile.location}</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <Mail size={17} />
+                <span className="text-white/80">{profile.email}</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <Phone size={17} />
+                <span className="text-white/80">{profile.phone}</span>
+              </div>
               <div className="flex items-center gap-4">
                 <motion.span
                   animate={{ scale: [1, 1.55, 1], opacity: [1, 0.55, 1] }}
@@ -439,7 +510,8 @@ function About() {
         transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
         className="absolute -left-24 top-10 h-52 w-52 rounded-full border border-dashed border-[#d6c7ad]"
       />
-      <div className="mx-auto grid w-full max-w-[1180px] gap-10 px-5 lg:grid-cols-[0.82fr_1.18fr] lg:px-6">
+
+      <div className="mx-auto grid w-full max-w-screen-2xl gap-10 px-5 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
         <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
           <p className="mb-3 text-[11px] font-black uppercase tracking-[0.35em] text-[#a78d67]">About Me</p>
           <h2 className="font-serif text-3xl leading-tight text-[#211e19] lg:text-[38px]">
@@ -500,7 +572,8 @@ function TechStack() {
         transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
         className="absolute inset-y-0 left-0 w-[160%] opacity-[0.05] [background-image:linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:50px_50px]"
       />
-      <div className="relative mx-auto w-full max-w-[1180px] px-5 lg:px-6">
+
+      <div className="relative mx-auto w-full max-w-screen-2xl px-5 lg:px-8">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -544,14 +617,14 @@ function Projects() {
         <Sparkles size={32} />
       </motion.div>
 
-      <div className="mx-auto w-full max-w-[1180px] px-5 lg:px-6">
+      <div className="mx-auto w-full max-w-screen-2xl px-5 lg:px-8">
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.35 }} className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <motion.div variants={fadeUp}>
             <p className="mb-3 text-[11px] font-black uppercase tracking-[0.35em] text-[#a78d67]">Featured Projects</p>
             <h2 className="font-serif text-4xl text-[#211f1a] lg:text-5xl">Some things I’ve built.</h2>
           </motion.div>
-          <motion.a variants={fadeUp} whileHover={{ x: 8 }} href="#" className="inline-flex items-center gap-2 text-sm font-bold text-[#211f1a] hover:text-[#a78d67]">
-            View all projects <ArrowRight size={16} />
+          <motion.a variants={fadeUp} whileHover={{ x: 8 }} href="#contact" className="inline-flex items-center gap-2 text-sm font-bold text-[#211f1a] hover:text-[#a78d67]">
+            Need a similar project? <ArrowRight size={16} />
           </motion.a>
         </motion.div>
 
@@ -573,6 +646,7 @@ function Projects() {
                 <motion.img
                   src={project.image}
                   alt={project.title}
+                  loading="lazy"
                   whileHover={{ scale: 1.16 }}
                   transition={{ duration: 0.9, ease: "easeOut" }}
                   className="h-full w-full object-cover"
@@ -593,17 +667,27 @@ function Projects() {
                   </motion.span>
                 )}
               </div>
+
               <div className="p-6">
                 <p className="mb-4 text-[10px] font-black uppercase tracking-[0.25em] text-[#a78d67]">{project.tag}</p>
                 <h3 className="mb-3 text-xl font-bold text-[#201d18]">{project.title}</h3>
                 <p className="min-h-[72px] text-sm leading-7 text-[#655d52]">{project.desc}</p>
-                <motion.a
-                  href={project.link}
-                  whileHover={{ x: 8 }}
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#a78d67]"
-                >
-                  {project.link === "#" ? "Live Soon" : "View Project"} <ArrowRight size={14} />
-                </motion.a>
+
+                {project.link === "#" ? (
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#a78d67]">
+                    Live Soon <ArrowRight size={14} />
+                  </span>
+                ) : (
+                  <motion.a
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    whileHover={{ x: 8 }}
+                    className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#a78d67]"
+                  >
+                    View Project <ArrowRight size={14} />
+                  </motion.a>
+                )}
               </div>
             </motion.article>
           ))}
@@ -622,7 +706,8 @@ function Experience() {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         className="absolute -right-24 top-10 h-80 w-80 rounded-full bg-[#b9a17a] blur-3xl"
       />
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+
+      <div className="relative mx-auto max-w-screen-2xl px-5 lg:px-8">
         <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-3 text-[11px] font-black uppercase tracking-[0.35em] text-[#b9a17a]">
           My Journey
         </motion.p>
@@ -669,6 +754,30 @@ function Experience() {
 }
 
 function Contact() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (event) => {
+    setForm((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const subject = encodeURIComponent(`Portfolio inquiry from ${form.name || "Visitor"}`);
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
+    );
+
+    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
+  };
+
   return (
     <section id="contact" className="relative overflow-hidden bg-[#f8f3eb]">
       <motion.div
@@ -689,13 +798,14 @@ function Contact() {
         <motion.img
           src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80"
           alt="Workspace"
+          loading="lazy"
           whileHover={{ scale: 1.06 }}
           transition={{ duration: 0.8 }}
           className="h-full w-full object-cover"
         />
       </motion.div>
 
-      <div className="relative mx-auto grid w-full max-w-[1180px] gap-9 px-5 py-14 lg:grid-cols-[0.72fr_1.28fr] lg:px-6">
+      <div className="relative mx-auto grid w-full max-w-screen-2xl gap-9 px-5 py-14 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
         <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
           <p className="mb-3 text-[11px] font-black uppercase tracking-[0.35em] text-[#a78d67]">Let's Connect</p>
           <h2 className="font-serif text-3xl leading-tight text-[#211f1a] lg:text-[38px]">
@@ -703,19 +813,32 @@ function Contact() {
           </h2>
 
           <div className="mt-8 space-y-4 text-sm text-[#5f574d]">
-            <motion.p whileHover={{ x: 8 }} className="flex items-center gap-3"><Mail size={17} className="text-[#a78d67]" /> {profile.email}</motion.p>
-            <motion.p whileHover={{ x: 8 }} className="flex items-center gap-3"><Phone size={17} className="text-[#a78d67]" /> {profile.phone}</motion.p>
-            <motion.p whileHover={{ x: 8 }} className="flex items-center gap-3"><MapPin size={17} className="text-[#a78d67]" /> {profile.location}</motion.p>
+            <motion.p whileHover={{ x: 8 }} className="flex items-center gap-3">
+              <Mail size={17} className="text-[#a78d67]" /> {profile.email}
+            </motion.p>
+            <motion.p whileHover={{ x: 8 }} className="flex items-center gap-3">
+              <Phone size={17} className="text-[#a78d67]" /> {profile.phone}
+            </motion.p>
+            <motion.p whileHover={{ x: 8 }} className="flex items-center gap-3">
+              <MapPin size={17} className="text-[#a78d67]" /> {profile.location}
+            </motion.p>
           </div>
 
           <div className="mt-7 flex gap-3">
-            <SocialButton href={profile.github}><GitHubIcon size={17} /></SocialButton>
-            <SocialButton href={profile.linkedin}><LinkedInIcon size={17} /></SocialButton>
-            <SocialButton href={`mailto:${profile.email}`}><Mail size={17} /></SocialButton>
+            <SocialButton href={profile.github} label="GitHub profile">
+              <GitHubIcon size={17} />
+            </SocialButton>
+            <SocialButton href={profile.linkedin} label="LinkedIn profile">
+              <LinkedInIcon size={17} />
+            </SocialButton>
+            <SocialButton href={`mailto:${profile.email}`} label="Send email">
+              <Mail size={17} />
+            </SocialButton>
           </div>
         </motion.div>
 
         <motion.form
+          onSubmit={handleSubmit}
           variants={fadeRight}
           initial="hidden"
           whileInView="show"
@@ -724,18 +847,45 @@ function Contact() {
           className="relative z-10 rounded-xl border border-[#e6ded0] bg-white/80 p-5 shadow-2xl shadow-black/5 backdrop-blur-xl lg:mr-[22%] lg:p-6"
         >
           <div className="grid gap-4 md:grid-cols-2">
-            <motion.input whileFocus={{ scale: 1.02 }} className="h-12 rounded-md border border-[#e9e2d7] bg-white px-4 text-sm outline-none transition focus:border-[#a78d67]" placeholder="Your Name" />
-            <motion.input whileFocus={{ scale: 1.02 }} className="h-12 rounded-md border border-[#e9e2d7] bg-white px-4 text-sm outline-none transition focus:border-[#a78d67]" placeholder="Email Address" />
+            <motion.input
+              whileFocus={{ scale: 1.02 }}
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              className="h-12 rounded-md border border-[#e9e2d7] bg-white px-4 text-sm outline-none transition focus:border-[#a78d67]"
+              placeholder="Your Name"
+              required
+            />
+            <motion.input
+              whileFocus={{ scale: 1.02 }}
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              className="h-12 rounded-md border border-[#e9e2d7] bg-white px-4 text-sm outline-none transition focus:border-[#a78d67]"
+              placeholder="Email Address"
+              required
+            />
           </div>
-          <motion.textarea whileFocus={{ scale: 1.01 }} className="mt-4 h-32 w-full resize-none rounded-md border border-[#e9e2d7] bg-white px-4 py-4 text-sm outline-none transition focus:border-[#a78d67]" placeholder="Your Message" />
-          <motion.a
-            href={`mailto:${profile.email}`}
+
+          <motion.textarea
+            whileFocus={{ scale: 1.01 }}
+            name="message"
+            value={form.message}
+            onChange={handleChange}
+            className="mt-4 h-32 w-full resize-none rounded-md border border-[#e9e2d7] bg-white px-4 py-4 text-sm outline-none transition focus:border-[#a78d67]"
+            placeholder="Your Message"
+            required
+          />
+
+          <motion.button
+            type="submit"
             whileHover={{ y: -4, scale: 1.02 }}
             whileTap={{ scale: 0.96 }}
             className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#151412] text-sm font-semibold text-white transition hover:bg-[#2a2824]"
           >
             Send Message <ArrowRight size={16} />
-          </motion.a>
+          </motion.button>
         </motion.form>
       </div>
     </section>
@@ -745,7 +895,7 @@ function Contact() {
 function Footer() {
   return (
     <footer className="bg-[#151513] text-white">
-      <div className="mx-auto flex w-full max-w-[1180px] flex-col items-center justify-between gap-3 px-5 py-5 text-xs text-white/60 md:flex-row lg:px-6">
+      <div className="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-between gap-3 px-5 py-5 text-xs text-white/60 md:flex-row lg:px-8">
         <motion.p
           animate={{ rotate: [0, 8, -8, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
