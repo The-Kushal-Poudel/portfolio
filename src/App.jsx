@@ -39,7 +39,7 @@ const profile = {
   email: "kushalpoudel240@gmail.com",
   phone: "9863614263 / 9824055306",
   image: "/images/pic3.png",
-  cv: "/Kushal-Poudel-CV.pdf",
+  cv: "/Kushal_Poudel_CV.pdf",
   github: "https://github.com/The-Kushal-Poudel",
   linkedin: "https://www.linkedin.com/in/kushal-poudel-317b25241/",
 };
@@ -335,6 +335,7 @@ function Hero() {
           <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row">
             <motion.a
               href={profile.cv}
+              download ="Kushal_Poudel_CV.pdf"
               whileHover={{ y: -5, scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
               className="inline-flex items-center justify-center gap-3 rounded-md bg-[#151412] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#292723]"
