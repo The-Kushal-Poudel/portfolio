@@ -1,3 +1,22 @@
+import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/react";
+
+export default function App() {
+  return (
+    <>
+      <Header />
+      <Hero />
+      <About />
+      <TechStack />
+      <Projects />
+      <Experience />
+      <Contact />
+      <Footer />
+
+      <Analytics />
+    </>
+  );
+}
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
