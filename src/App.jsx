@@ -295,9 +295,9 @@ function Header() {
           >
             K.
           </motion.span>
-          <span className="hidden font-serif text-lg font-semibold tracking-wide text-[#29251f] sm:block">
-            Kushal <span className="text-[#a78d67]">Poudel</span>
-          </span>
+         <span className="block max-w-[150px] truncate font-serif text-base font-semibold tracking-wide text-[#29251f] sm:max-w-none sm:text-lg">
+  Kushal <span className="text-[#a78d67]">Poudel</span>
+</span>
         </motion.a>
 
         <nav className="hidden items-center gap-7 text-[13px] font-semibold text-[#332f29] md:flex">
