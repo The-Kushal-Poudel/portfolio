@@ -286,18 +286,19 @@ function Header() {
       transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
       className="sticky top-0 z-[9999] border-b border-[#e6ded0]/80 bg-[#f8f3eb]/95 backdrop-blur-xl"
     >
-      <div className="mx-auto flex w-full max-w-screen-2xl items-center justify-between px-5 py-4 lg:px-8">
-        <motion.a href="#home" whileHover={{ scale: 1.04 }} className="flex shrink-0 items-center gap-3">
+      <div className="mx-auto flex w-full max-w-screen-2xl items-center justify-between px-4 py-3 sm:px-5 lg:px-8">
+        <motion.a href="#home" whileHover={{ scale: 1.04 }} className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3">
           <motion.span
             animate={{ rotate: [0, 4, -4, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="font-serif text-4xl font-black leading-none tracking-tight text-[#151412]"
+            className="font-serif text-3xl font-black leading-none tracking-tight text-[#151412] sm:text-4xl"
           >
             K.
           </motion.span>
-         <span className="block max-w-[150px] truncate font-serif text-base font-semibold tracking-wide text-[#29251f] sm:max-w-none sm:text-lg">
-  Kushal <span className="text-[#a78d67]">Poudel</span>
-</span>
+
+          <span className="block max-w-[135px] truncate font-serif text-[15px] font-semibold tracking-wide text-[#29251f] sm:max-w-none sm:text-lg">
+            Kushal <span className="text-[#a78d67]">Poudel</span>
+          </span>
         </motion.a>
 
         <nav className="hidden items-center gap-7 text-[13px] font-semibold text-[#332f29] md:flex">
@@ -328,9 +329,9 @@ function Header() {
           type="button"
           onClick={() => setOpen((prev) => !prev)}
           aria-label="Toggle mobile menu"
-          className="relative z-[10000] flex h-11 w-11 items-center justify-center rounded-lg border border-[#151412]/20 bg-[#151412] text-white shadow-md md:hidden"
+          className="relative z-[10000] flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#151412]/20 bg-[#151412] text-white shadow-md md:hidden"
         >
-          {open ? <X size={23} /> : <Menu size={23} />}
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
@@ -338,7 +339,7 @@ function Header() {
         <motion.nav
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute left-0 top-full z-[9998] w-full border-t border-[#e6ded0] bg-[#f8f3eb] px-5 py-4 shadow-xl md:hidden"
+          className="absolute left-0 top-full z-[9998] w-full border-t border-[#e6ded0] bg-[#f8f3eb] px-4 py-3 shadow-xl md:hidden"
         >
           <div className="mx-auto grid max-w-screen-2xl gap-2">
             {navItems.map((item) => (
@@ -369,9 +370,9 @@ function Hero() {
       <AnimatedBackground />
       <div className="absolute inset-0 opacity-[0.45] [background-image:radial-gradient(#d2c4ae_1px,transparent_1px)] [background-size:28px_28px]" />
 
-      <div className="relative mx-auto grid w-full max-w-screen-2xl items-center gap-10 px-5 pb-14 pt-10 lg:grid-cols-[0.86fr_1.14fr] lg:px-8 lg:pb-16 lg:pt-14">
+      <div className="relative mx-auto grid w-full max-w-screen-2xl items-center gap-7 px-4 pb-10 pt-7 sm:px-5 lg:grid-cols-[0.86fr_1.14fr] lg:px-8 lg:pb-14 lg:pt-12">
         <motion.div style={{ y: heroY }} variants={stagger} initial="hidden" animate="show">
-          <motion.p variants={fadeUp} className="mb-5 flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.35em] text-[#a78d67]">
+          <motion.p variants={fadeUp} className="mb-4 flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-[#a78d67] sm:text-[11px] sm:tracking-[0.35em]">
             <motion.span
               animate={{ scale: [1, 1.8, 1], opacity: [1, 0.4, 1] }}
               transition={{ duration: 1.6, repeat: Infinity }}
@@ -380,21 +381,21 @@ function Hero() {
             {profile.role}
           </motion.p>
 
-          <AnimatedTitle className="max-w-[720px] font-serif text-[42px] leading-[1.02] tracking-tight text-[#1f1c18] sm:text-5xl lg:text-[70px]">
+          <AnimatedTitle className="max-w-[720px] font-serif text-[34px] leading-[1.08] tracking-tight text-[#1f1c18] sm:text-5xl lg:text-[70px]">
             I build digital experiences that are clean, fast & meaningful.
           </AnimatedTitle>
 
-          <motion.p variants={fadeUp} className="mt-5 max-w-[620px] text-[15px] leading-8 text-[#5f574d]">
+          <motion.p variants={fadeUp} className="mt-4 max-w-[620px] text-[14px] leading-7 text-[#5f574d] sm:text-[15px] sm:leading-8">
             BCA graduate focused on building Laravel applications, backend systems and modern full-stack web experiences using Java, PHP, SQL, React and Tailwind CSS.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <motion.div variants={fadeUp} className="mt-6 flex flex-col gap-3 sm:flex-row">
             <motion.a
               href={profile.cv}
               download="Kushal_Poudel_CV.pdf"
               whileHover={{ y: -5, scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
-              className="inline-flex items-center justify-center gap-3 rounded-md bg-[#151412] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#292723]"
+              className="inline-flex items-center justify-center gap-3 rounded-md bg-[#151412] px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#292723]"
             >
               Download CV <Download size={16} />
             </motion.a>
@@ -403,14 +404,14 @@ function Hero() {
               href="#projects"
               whileHover={{ y: -5, scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
-              className="inline-flex items-center justify-center gap-3 rounded-md border border-[#beb3a2] bg-white/30 px-7 py-4 text-sm font-semibold text-[#1d1b17] transition hover:bg-white"
+              className="inline-flex items-center justify-center gap-3 rounded-md border border-[#beb3a2] bg-white/30 px-6 py-3.5 text-sm font-semibold text-[#1d1b17] transition hover:bg-white"
             >
               View My Projects <ArrowRight size={16} />
             </motion.a>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-4">
-            <span className="text-[11px] font-black uppercase tracking-[0.28em] text-[#8c806f]">Follow me on</span>
+          <motion.div variants={fadeUp} className="mt-7 flex flex-wrap items-center gap-4">
+            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#8c806f] sm:text-[11px]">Follow me on</span>
             <SocialButton href={profile.github} label="GitHub profile">
               <GitHubIcon size={17} />
             </SocialButton>
@@ -428,7 +429,7 @@ function Hero() {
           initial={{ opacity: 0, scale: 0.88, rotate: 4, filter: "blur(12px)" }}
           animate={{ opacity: 1, scale: 1, rotate: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.95, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto min-h-[455px] w-full max-w-[650px] lg:mx-0"
+          className="relative mx-auto min-h-[370px] w-full max-w-[650px] lg:mx-0 lg:min-h-[455px]"
         >
           <FloatingChip delay={0.7} className="left-2 top-8 z-20">
             Laravel
@@ -443,7 +444,7 @@ function Hero() {
           <motion.div
             whileHover={{ scale: 1.035, rotate: -1.5 }}
             transition={{ type: "spring", stiffness: 180, damping: 18 }}
-            className="absolute right-0 top-0 h-[410px] w-[88%] overflow-hidden rounded-[18px] bg-[#d8cbb8] shadow-2xl shadow-black/15"
+            className="absolute right-0 top-0 h-[330px] w-[88%] overflow-hidden rounded-[18px] bg-[#d8cbb8] shadow-2xl shadow-black/15 sm:h-[410px]"
           >
             <motion.img
               src={profile.image}
@@ -462,9 +463,9 @@ function Hero() {
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.8, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -8, scale: 1.02 }}
-            className="absolute bottom-8 left-0 w-[92%] max-w-[410px] rounded-xl border border-white/10 bg-[#171614]/90 p-5 text-white shadow-2xl shadow-black/25 backdrop-blur-xl sm:left-8"
+            className="absolute bottom-8 left-0 w-[92%] max-w-[410px] rounded-xl border border-white/10 bg-[#171614]/90 p-4 text-white shadow-2xl shadow-black/25 backdrop-blur-xl sm:left-8 sm:p-5"
           >
-            <div className="grid gap-4 text-sm">
+            <div className="grid gap-3 text-sm sm:gap-4">
               <div className="flex items-center gap-4">
                 <MapPin size={17} />
                 <span className="text-white/80">{profile.location}</span>
@@ -504,32 +505,32 @@ function Hero() {
 
 function About() {
   return (
-    <section id="about" className="relative overflow-hidden border-y border-[#e6ded0] bg-[#f8f3eb] py-14">
+    <section id="about" className="relative overflow-hidden border-y border-[#e6ded0] bg-[#f8f3eb] py-12 lg:py-14">
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
         className="absolute -left-24 top-10 h-52 w-52 rounded-full border border-dashed border-[#d6c7ad]"
       />
 
-      <div className="mx-auto grid w-full max-w-screen-2xl gap-10 px-5 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+      <div className="mx-auto grid w-full max-w-screen-2xl gap-8 px-4 sm:px-5 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
         <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-          <p className="mb-3 text-[11px] font-black uppercase tracking-[0.35em] text-[#a78d67]">About Me</p>
+          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">About Me</p>
           <h2 className="font-serif text-3xl leading-tight text-[#211e19] lg:text-[38px]">
             Turning ideas into functional & beautiful web applications.
           </h2>
-          <p className="mt-5 max-w-lg text-[15px] leading-8 text-[#62594e]">
+          <p className="mt-4 max-w-lg text-[14px] leading-7 text-[#62594e] sm:text-[15px] sm:leading-8">
             I am a BCA graduate and backend-focused developer from Kathmandu. I enjoy building clean, dynamic and useful web applications with Laravel, PHP, SQL, React and Tailwind CSS. I am also exploring Java, Spring and backend development concepts to grow as a stronger full-stack developer.
           </p>
           <motion.p
             whileInView={{ x: [0, 8, 0] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-            className="mt-6 font-serif text-3xl italic text-[#a78d67]"
+            className="mt-5 font-serif text-3xl italic text-[#a78d67]"
           >
             Kushal
           </motion.p>
         </motion.div>
 
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {aboutCards.map((card) => {
             const Icon = card.icon;
             return (
@@ -547,7 +548,7 @@ function About() {
                 <motion.div
                   whileHover={{ rotate: 360, scale: 1.1 }}
                   transition={{ duration: 0.6 }}
-                  className="mb-8 grid h-14 w-14 place-items-center rounded-full bg-[#f0eadf] text-[#1c1a17] transition group-hover:bg-[#1c1a17] group-hover:text-white"
+                  className="mb-6 grid h-13 w-13 place-items-center rounded-full bg-[#f0eadf] text-[#1c1a17] transition group-hover:bg-[#1c1a17] group-hover:text-white"
                 >
                   <Icon size={23} />
                 </motion.div>
@@ -566,20 +567,20 @@ function TechStack() {
   const repeated = [...technologies, ...technologies, ...technologies];
 
   return (
-    <section id="skills" className="relative overflow-hidden bg-[#151513] py-12 text-white">
+    <section id="skills" className="relative overflow-hidden bg-[#151513] py-10 text-white lg:py-12">
       <motion.div
         animate={{ x: ["-20%", "0%", "-20%"] }}
         transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
         className="absolute inset-y-0 left-0 w-[160%] opacity-[0.05] [background-image:linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:50px_50px]"
       />
 
-      <div className="relative mx-auto w-full max-w-screen-2xl px-5 lg:px-8">
+      <div className="relative mx-auto w-full max-w-screen-2xl px-4 sm:px-5 lg:px-8">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-8 text-center text-[11px] font-black uppercase tracking-[0.4em] text-[#b9a17a]"
+          className="mb-7 text-center text-[10px] font-black uppercase tracking-[0.35em] text-[#b9a17a] sm:text-[11px]"
         >
           Technologies I Work With
         </motion.p>
@@ -588,13 +589,13 @@ function TechStack() {
           <motion.div
             animate={{ x: ["0%", "-50%"] }}
             transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-            className="flex w-max gap-4"
+            className="flex w-max gap-3 sm:gap-4"
           >
             {repeated.map((tech, index) => (
               <motion.div
                 key={`${tech}-${index}`}
                 whileHover={{ y: -8, scale: 1.08 }}
-                className="flex min-w-[145px] items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm text-white/75 backdrop-blur"
+                className="flex min-w-[130px] items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-white/75 backdrop-blur sm:min-w-[145px] sm:px-5 sm:py-3"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-[#b9a17a]" /> {tech}
               </motion.div>
@@ -608,7 +609,7 @@ function TechStack() {
 
 function Projects() {
   return (
-    <section id="projects" className="relative overflow-hidden bg-[#f8f3eb] py-14">
+    <section id="projects" className="relative overflow-hidden bg-[#f8f3eb] py-12 lg:py-14">
       <motion.div
         animate={{ y: [0, -24, 0], rotate: [0, 8, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -617,18 +618,18 @@ function Projects() {
         <Sparkles size={32} />
       </motion.div>
 
-      <div className="mx-auto w-full max-w-screen-2xl px-5 lg:px-8">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.35 }} className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-5 lg:px-8">
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.35 }} className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <motion.div variants={fadeUp}>
-            <p className="mb-3 text-[11px] font-black uppercase tracking-[0.35em] text-[#a78d67]">Featured Projects</p>
-            <h2 className="font-serif text-4xl text-[#211f1a] lg:text-5xl">Some things I’ve built.</h2>
+            <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">Featured Projects</p>
+            <h2 className="font-serif text-3xl text-[#211f1a] sm:text-4xl lg:text-5xl">Some things I’ve built.</h2>
           </motion.div>
           <motion.a variants={fadeUp} whileHover={{ x: 8 }} href="#contact" className="inline-flex items-center gap-2 text-sm font-bold text-[#211f1a] hover:text-[#a78d67]">
             Need a similar project? <ArrowRight size={16} />
           </motion.a>
         </motion.div>
 
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} className="grid gap-6 md:grid-cols-3">
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} className="grid gap-5 md:grid-cols-3">
           {projects.map((project) => (
             <motion.article
               key={project.title}
@@ -668,7 +669,7 @@ function Projects() {
                 )}
               </div>
 
-              <div className="p-6">
+              <div className="p-5 sm:p-6">
                 <p className="mb-4 text-[10px] font-black uppercase tracking-[0.25em] text-[#a78d67]">{project.tag}</p>
                 <h3 className="mb-3 text-xl font-bold text-[#201d18]">{project.title}</h3>
                 <p className="min-h-[72px] text-sm leading-7 text-[#655d52]">{project.desc}</p>
@@ -699,7 +700,7 @@ function Projects() {
 
 function Experience() {
   return (
-    <section id="experience" className="relative overflow-hidden bg-[#151513] py-14 text-white">
+    <section id="experience" className="relative overflow-hidden bg-[#151513] py-12 text-white lg:py-14">
       <div className="pointer-events-none absolute inset-0 opacity-[0.04] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:60px_60px]" />
       <motion.div
         animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.18, 0.08] }}
@@ -707,11 +708,11 @@ function Experience() {
         className="absolute -right-24 top-10 h-80 w-80 rounded-full bg-[#b9a17a] blur-3xl"
       />
 
-      <div className="relative mx-auto max-w-screen-2xl px-5 lg:px-8">
-        <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-3 text-[11px] font-black uppercase tracking-[0.35em] text-[#b9a17a]">
+      <div className="relative mx-auto max-w-screen-2xl px-4 sm:px-5 lg:px-8">
+        <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#b9a17a] sm:text-[11px]">
           My Journey
         </motion.p>
-        <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-12 font-serif text-4xl lg:text-5xl">
+        <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-10 font-serif text-3xl sm:text-4xl lg:text-5xl">
           Education & Experience
         </motion.h2>
 
@@ -728,7 +729,7 @@ function Experience() {
           />
         </svg>
 
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative grid gap-10 md:grid-cols-3">
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative grid gap-8 md:grid-cols-3">
           {journey.map((item) => {
             const Icon = item.icon;
             return (
@@ -771,9 +772,7 @@ function Contact() {
     event.preventDefault();
 
     const subject = encodeURIComponent(`Portfolio inquiry from ${form.name || "Visitor"}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
-    );
+    const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`);
 
     window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
   };
@@ -805,14 +804,14 @@ function Contact() {
         />
       </motion.div>
 
-      <div className="relative mx-auto grid w-full max-w-screen-2xl gap-9 px-5 py-14 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
+      <div className="relative mx-auto grid w-full max-w-screen-2xl gap-8 px-4 py-12 sm:px-5 lg:grid-cols-[0.72fr_1.28fr] lg:px-8 lg:py-14">
         <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-          <p className="mb-3 text-[11px] font-black uppercase tracking-[0.35em] text-[#a78d67]">Let's Connect</p>
+          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">Let's Connect</p>
           <h2 className="font-serif text-3xl leading-tight text-[#211f1a] lg:text-[38px]">
             Have a project in mind? <br /> Let’s build something amazing together.
           </h2>
 
-          <div className="mt-8 space-y-4 text-sm text-[#5f574d]">
+          <div className="mt-7 space-y-4 text-sm text-[#5f574d]">
             <motion.p whileHover={{ x: 8 }} className="flex items-center gap-3">
               <Mail size={17} className="text-[#a78d67]" /> {profile.email}
             </motion.p>
@@ -824,7 +823,7 @@ function Contact() {
             </motion.p>
           </div>
 
-          <div className="mt-7 flex gap-3">
+          <div className="mt-6 flex gap-3">
             <SocialButton href={profile.github} label="GitHub profile">
               <GitHubIcon size={17} />
             </SocialButton>
@@ -895,7 +894,7 @@ function Contact() {
 function Footer() {
   return (
     <footer className="bg-[#151513] text-white">
-      <div className="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-between gap-3 px-5 py-5 text-xs text-white/60 md:flex-row lg:px-8">
+      <div className="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-white/60 sm:px-5 md:flex-row lg:px-8">
         <motion.p
           animate={{ rotate: [0, 8, -8, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
