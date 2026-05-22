@@ -15,6 +15,7 @@ import {
   Sparkles,
   Zap,
 } from "lucide-react";
+import { Analytics } from "@vercel/analytics/react";
 
 function GitHubIcon({ size = 18, className = "" }) {
   return (
@@ -771,6 +772,7 @@ export default function App() {
       <Experience />
       <Contact />
       <Footer />
+      <Analytics />
     </main>
   );
 }
