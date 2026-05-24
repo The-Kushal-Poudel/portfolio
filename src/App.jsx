@@ -512,7 +512,7 @@ function About() {
         className="absolute -left-24 top-10 h-52 w-52 rounded-full border border-dashed border-[#d6c7ad]"
       />
 
-      <div className="mx-auto grid w-full max-w-screen-2xl gap-8 px-4 sm:px-5 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+      <div className="mx-auto grid w-full max-w-screen-2xl gap-8 px-2 sm:px-5 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
         <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
           <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">About Me</p>
           <h2 className="font-serif text-3xl leading-tight text-[#211e19] lg:text-[38px]">
