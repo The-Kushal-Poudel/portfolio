@@ -19,6 +19,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { Analytics } from "@vercel/analytics/react";
 
 function GitHubIcon({ size = 18, className = "" }) {
   return (
