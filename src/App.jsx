@@ -530,7 +530,7 @@ function About() {
           </motion.p>
         </motion.div>
 
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">  
           {aboutCards.map((card) => {
             const Icon = card.icon;
             return (
@@ -629,7 +629,7 @@ function Projects() {
           </motion.a>
         </motion.div>
 
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} className="grid gap-5 md:grid-cols-3">
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 md:grid-cols-4">
           {projects.map((project) => (
             <motion.article
               key={project.title}
