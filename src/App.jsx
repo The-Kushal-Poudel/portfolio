@@ -18,7 +18,33 @@ import {
   Zap,
   Menu,
   X,
+  BookOpen,
+  CalendarDays,
 } from "lucide-react";
+import { portfolioData } from "./data/portfolioData";
+
+const {
+  site,
+  navItems,
+  profile,
+  hero,
+  about,
+  techStack,
+  projectsSection,
+  blogsSection,
+  journeySection,
+  contact: contactData,
+} = portfolioData;
+
+const iconMap = {
+  Code,
+  Database,
+  Monitor,
+  Rocket,
+  Briefcase,
+  GraduationCap,
+  Laptop,
+};
 
 function GitHubIcon({ size = 18, className = "" }) {
   return (
@@ -35,94 +61,6 @@ function LinkedInIcon({ size = 18, className = "" }) {
     </svg>
   );
 }
-
-const profile = {
-  name: "Kushal Poudel",
-  role: "Backend Java Developer | Full-stack Laravel Developer",
-  location: "Sinamangal, Kathmandu",
-  email: "kushalpoudel240@gmail.com",
-  phone: "9863614263 / 9824055306",
-  image: "/images/pic3.png",
-  cv: "/Kushal_Poudel_CV.pdf",
-  github: "https://github.com/The-Kushal-Poudel",
-  linkedin: "https://www.linkedin.com/in/kushal-poudel-317b25241/",
-};
-
-const navItems = ["Home", "About", "Skills", "Projects", "Experience", "Contact"];
-
-const aboutCards = [
-  {
-    title: "Clean Code",
-    icon: Code,
-    text: "Writing maintainable and scalable code with simple structure and best practices.",
-  },
-  {
-    title: "Strong Backend",
-    icon: Database,
-    text: "Building robust APIs, dashboards and backend systems using Laravel, PHP and Java.",
-  },
-  {
-    title: "Responsive UI",
-    icon: Monitor,
-    text: "Creating clean, modern and mobile-friendly interfaces using React and Tailwind CSS.",
-  },
-  {
-    title: "Always Learning",
-    icon: Rocket,
-    text: "Exploring new technologies and improving through practical real-world projects.",
-  },
-];
-
-const technologies = ["Laravel", "PHP", "MySQL", "React", "Tailwind CSS", "Git", "Java", "Spring", "PostgreSQL"];
-
-const projects = [
-  {
-    title: "News Portal",
-    tag: "Laravel • SQL • Tailwind CSS",
-    image: "https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=900&q=80",
-    desc: "User and admin based news portal website with dashboard, category management and role based access.",
-    link: "#",
-  },
-  {
-    title: "Sayumi Travels and Tours",
-    tag: "Laravel • SQL • Tailwind CSS • Git",
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
-    desc: "Travel and tours website with dynamic packages, destinations, booking forms and admin management features.",
-    link: "https://sayumiglobal.com/",
-  },
-  {
-    title: "ConvertTree",
-    tag: "Laravel • SQL • Tailwind CSS",
-    status: "Launching Soon",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
-    desc: "All-in-one online tools platform for PDF, image, email, video and daily utility tools.",
-    link: "https://www.converttree.com/",
-  },
-];
-
-const journey = [
-  {
-    year: "7th January 2024 - 4th April 2024",
-    title: "Backend Java Developer Intern",
-    company: "FoneNxt",
-    icon: Briefcase,
-    text: "Worked as an intern and learned Java, PostgreSQL, use case flow and backend development practices.",
-  },
-  {
-    year: "2020 - 2025",
-    title: "Bachelor of Computer Application",
-    company: "Patan Multiple Campus",
-    icon: GraduationCap,
-    text: "Completed a bachelor’s degree focused on programming, database systems, web development and software engineering.",
-  },
-  {
-    year: "Present",
-    title: "Laravel & Web Development Projects",
-    company: "Softsaron Pvt. Ltd. & Freelance",
-    icon: Laptop,
-    text: "Built Laravel based dynamic websites with admin panels, responsive UI, database integration and Git workflow.",
-  },
-];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 42, filter: "blur(10px)" },
@@ -293,25 +231,25 @@ function Header() {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="font-serif text-3xl font-black leading-none tracking-tight text-[#151412] sm:text-4xl"
           >
-            K.
+            {site.logoInitial}
           </motion.span>
 
           <span className="block max-w-[135px] truncate font-serif text-[15px] font-semibold tracking-wide text-[#29251f] sm:max-w-none sm:text-lg">
-            Kushal <span className="text-[#a78d67]">Poudel</span>
+            {site.logoName} <span className="text-[#a78d67]">{site.logoHighlight}</span>
           </span>
         </motion.a>
 
         <nav className="hidden items-center gap-7 text-[13px] font-semibold text-[#332f29] md:flex">
           {navItems.map((item, index) => (
             <motion.a
-              key={item}
+              key={item.label}
               initial={{ opacity: 0, y: -14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: index * 0.06 }}
-              href={`#${item.toLowerCase()}`}
+              href={item.href}
               className="relative transition hover:text-[#a78d67] after:absolute after:-bottom-2 after:left-0 after:h-px after:w-0 after:bg-[#151412] after:transition-all hover:after:w-full"
             >
-              {item}
+              {item.label}
             </motion.a>
           ))}
         </nav>
@@ -344,12 +282,12 @@ function Header() {
           <div className="mx-auto grid max-w-screen-2xl gap-2">
             {navItems.map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
+                key={item.label}
+                href={item.href}
                 onClick={() => setOpen(false)}
                 className="rounded-lg bg-white px-4 py-3 text-sm font-semibold text-[#332f29] transition hover:text-[#a78d67]"
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </div>
@@ -382,31 +320,31 @@ function Hero() {
           </motion.p>
 
           <AnimatedTitle className="max-w-[720px] font-serif text-[34px] leading-[1.08] tracking-tight text-[#1f1c18] sm:text-5xl lg:text-[70px]">
-            I build digital experiences that are clean, fast & meaningful.
+            {hero.title}
           </AnimatedTitle>
 
           <motion.p variants={fadeUp} className="mt-4 max-w-[620px] text-[14px] leading-7 text-[#5f574d] sm:text-[15px] sm:leading-8">
-            BCA graduate focused on building Laravel applications, backend systems and modern full-stack web experiences using Java, PHP, SQL, React and Tailwind CSS.
+            {hero.description}
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-6 flex flex-col gap-3 sm:flex-row">
             <motion.a
               href={profile.cv}
-              download="Kushal_Poudel_CV.pdf"
+              download={profile.cvFileName}
               whileHover={{ y: -5, scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
               className="inline-flex items-center justify-center gap-3 rounded-md bg-[#151412] px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#292723]"
             >
-              Download CV <Download size={16} />
+              {hero.primaryButton} <Download size={16} />
             </motion.a>
 
             <motion.a
-              href="#projects"
+              href={hero.secondaryLink}
               whileHover={{ y: -5, scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
               className="inline-flex items-center justify-center gap-3 rounded-md border border-[#beb3a2] bg-white/30 px-6 py-3.5 text-sm font-semibold text-[#1d1b17] transition hover:bg-white"
             >
-              View My Projects <ArrowRight size={16} />
+              {hero.secondaryButton} <ArrowRight size={16} />
             </motion.a>
           </motion.div>
 
@@ -431,15 +369,11 @@ function Hero() {
           transition={{ duration: 0.95, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           className="relative mx-auto min-h-[370px] w-full max-w-[650px] lg:mx-0 lg:min-h-[455px]"
         >
-          <FloatingChip delay={0.7} className="left-2 top-8 z-20">
-            Laravel
-          </FloatingChip>
-          <FloatingChip delay={1.1} className="right-4 top-24 z-20 hidden sm:block">
-            React
-          </FloatingChip>
-          <FloatingChip delay={1.45} className="bottom-36 right-12 z-20 hidden sm:block">
-            Java
-          </FloatingChip>
+          {hero.chips.map((chip) => (
+            <FloatingChip key={chip.label} delay={chip.delay} className={chip.className}>
+              {chip.label}
+            </FloatingChip>
+          ))}
 
           <motion.div
             whileHover={{ scale: 1.035, rotate: -1.5 }}
@@ -450,7 +384,7 @@ function Hero() {
               src={profile.image}
               alt={profile.name}
               onError={(e) => {
-                e.currentTarget.src = "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=900&q=80";
+                e.currentTarget.src = profile.imageFallback;
               }}
               whileHover={{ scale: 1.08 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
@@ -484,7 +418,7 @@ function Hero() {
                   transition={{ duration: 1.5, repeat: Infinity }}
                   className="h-3 w-3 rounded-full bg-green-500 shadow-lg shadow-green-500/40"
                 />
-                <span className="font-semibold">Available for work</span>
+                <span className="font-semibold">{profile.availability}</span>
               </div>
             </div>
           </motion.div>
@@ -512,27 +446,23 @@ function About() {
         className="absolute -left-24 top-10 h-52 w-52 rounded-full border border-dashed border-[#d6c7ad]"
       />
 
-      <div className="mx-auto grid w-full max-w-screen-2xl gap-8 px-2 sm:px-5 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+      <div className="mx-auto grid w-full max-w-screen-2xl gap-8 px-4 sm:px-5 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
         <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">About Me</p>
-          <h2 className="font-serif text-3xl leading-tight text-[#211e19] lg:text-[38px]">
-            Turning ideas into functional & beautiful web applications.
-          </h2>
-          <p className="mt-4 max-w-lg text-[14px] leading-7 text-[#62594e] sm:text-[15px] sm:leading-8">
-            I am a BCA graduate and backend-focused developer from Kathmandu. I enjoy building clean, dynamic and useful web applications with Laravel, PHP, SQL, React and Tailwind CSS. I am also exploring Java, Spring and backend development concepts to grow as a stronger full-stack developer.
-          </p>
+          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">{about.label}</p>
+          <h2 className="font-serif text-3xl leading-tight text-[#211e19] lg:text-[38px]">{about.title}</h2>
+          <p className="mt-4 max-w-lg text-[14px] leading-7 text-[#62594e] sm:text-[15px] sm:leading-8">{about.description}</p>
           <motion.p
             whileInView={{ x: [0, 8, 0] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
             className="mt-5 font-serif text-3xl italic text-[#a78d67]"
           >
-            Kushal
+            {about.signature}
           </motion.p>
         </motion.div>
 
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">  
-          {aboutCards.map((card) => {
-            const Icon = card.icon;
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8">
+          {about.cards.map((card) => {
+            const Icon = iconMap[card.icon] || Code;
             return (
               <motion.div
                 key={card.title}
@@ -548,7 +478,7 @@ function About() {
                 <motion.div
                   whileHover={{ rotate: 360, scale: 1.1 }}
                   transition={{ duration: 0.6 }}
-                  className="mb-6 grid h-13 w-13 place-items-center rounded-full bg-[#f0eadf] text-[#1c1a17] transition group-hover:bg-[#1c1a17] group-hover:text-white"
+                  className="mb-6 grid h-[52px] w-[52px] place-items-center rounded-full bg-[#f0eadf] text-[#1c1a17] transition group-hover:bg-[#1c1a17] group-hover:text-white"
                 >
                   <Icon size={23} />
                 </motion.div>
@@ -564,7 +494,7 @@ function About() {
 }
 
 function TechStack() {
-  const repeated = [...technologies, ...technologies, ...technologies];
+  const repeated = [...techStack.items, ...techStack.items, ...techStack.items];
 
   return (
     <section id="skills" className="relative overflow-hidden bg-[#151513] py-10 text-white lg:py-12">
@@ -582,7 +512,7 @@ function TechStack() {
           transition={{ duration: 0.6 }}
           className="mb-7 text-center text-[10px] font-black uppercase tracking-[0.35em] text-[#b9a17a] sm:text-[11px]"
         >
-          Technologies I Work With
+          {techStack.label}
         </motion.p>
 
         <div className="relative overflow-hidden">
@@ -621,16 +551,16 @@ function Projects() {
       <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-5 lg:px-8">
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.35 }} className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <motion.div variants={fadeUp}>
-            <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">Featured Projects</p>
-            <h2 className="font-serif text-3xl text-[#211f1a] sm:text-4xl lg:text-5xl">Some things I’ve built.</h2>
+            <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">{projectsSection.label}</p>
+            <h2 className="font-serif text-3xl text-[#211f1a] sm:text-4xl lg:text-5xl">{projectsSection.title}</h2>
           </motion.div>
-          <motion.a variants={fadeUp} whileHover={{ x: 8 }} href="#contact" className="inline-flex items-center gap-2 text-sm font-bold text-[#211f1a] hover:text-[#a78d67]">
-            Need a similar project? <ArrowRight size={16} />
+          <motion.a variants={fadeUp} whileHover={{ x: 8 }} href={projectsSection.ctaLink} className="inline-flex items-center gap-2 text-sm font-bold text-[#211f1a] hover:text-[#a78d67]">
+            {projectsSection.ctaText} <ArrowRight size={16} />
           </motion.a>
         </motion.div>
 
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 md:grid-cols-4">
-          {projects.map((project) => (
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8 xl:grid-cols-3">
+          {projectsSection.items.map((project) => (
             <motion.article
               key={project.title}
               variants={popIn}
@@ -698,6 +628,56 @@ function Projects() {
   );
 }
 
+function Blogs() {
+  return (
+    <section id="blogs" className="relative overflow-hidden border-y border-[#e6ded0] bg-white py-12 lg:py-14">
+      <div className="absolute inset-0 opacity-[0.35] [background-image:radial-gradient(#d2c4ae_1px,transparent_1px)] [background-size:30px_30px]" />
+
+      <div className="relative mx-auto w-full max-w-screen-2xl px-4 sm:px-5 lg:px-8">
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.35 }} className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <motion.div variants={fadeUp}>
+            <p className="mb-3 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">
+              <BookOpen size={15} /> {blogsSection.label}
+            </p>
+            <h2 className="font-serif text-3xl text-[#211f1a] sm:text-4xl lg:text-5xl">{blogsSection.title}</h2>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#655d52] sm:text-[15px]">{blogsSection.description}</p>
+          </motion.div>
+          <motion.a variants={fadeUp} whileHover={{ x: 8 }} href={blogsSection.ctaLink} className="inline-flex items-center gap-2 text-sm font-bold text-[#211f1a] hover:text-[#a78d67]">
+            {blogsSection.ctaText} <ArrowRight size={16} />
+          </motion.a>
+        </motion.div>
+
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 lg:gap-8">
+          {blogsSection.items.map((blog) => (
+            <motion.article
+              key={blog.title}
+              variants={popIn}
+              whileHover={{ y: -14, scale: 1.02 }}
+              className="group rounded-xl border border-[#e6ded0] bg-[#f8f3eb]/85 p-5 shadow-sm transition hover:bg-white hover:shadow-2xl hover:shadow-black/10 sm:p-6"
+            >
+              <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+                <span className="rounded-full bg-[#151412] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-white">
+                  {blog.category}
+                </span>
+                <span className="inline-flex items-center gap-2 text-xs font-semibold text-[#7d7162]">
+                  <CalendarDays size={14} /> {blog.date}
+                </span>
+              </div>
+
+              <h3 className="text-xl font-bold leading-snug text-[#201d18] transition group-hover:text-[#a78d67]">{blog.title}</h3>
+              <p className="mt-4 min-h-[98px] text-sm leading-7 text-[#655d52]">{blog.desc}</p>
+
+              <motion.a href={blog.link} whileHover={{ x: 8 }} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#a78d67]">
+                Read Article <ArrowRight size={14} />
+              </motion.a>
+            </motion.article>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 function Experience() {
   return (
     <section id="experience" className="relative overflow-hidden bg-[#151513] py-12 text-white lg:py-14">
@@ -710,10 +690,10 @@ function Experience() {
 
       <div className="relative mx-auto max-w-screen-2xl px-4 sm:px-5 lg:px-8">
         <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#b9a17a] sm:text-[11px]">
-          My Journey
+          {journeySection.label}
         </motion.p>
         <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-10 font-serif text-3xl sm:text-4xl lg:text-5xl">
-          Education & Experience
+          {journeySection.title}
         </motion.h2>
 
         <svg className="absolute left-8 right-8 top-40 hidden h-36 w-[calc(100%-4rem)] opacity-35 lg:block" viewBox="0 0 1200 120" fill="none">
@@ -730,8 +710,8 @@ function Experience() {
         </svg>
 
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative grid gap-8 md:grid-cols-3">
-          {journey.map((item) => {
-            const Icon = item.icon;
+          {journeySection.items.map((item) => {
+            const Icon = iconMap[item.icon] || Briefcase;
             return (
               <motion.div key={item.title} variants={fadeUp} whileHover={{ y: -12 }} className="relative">
                 <motion.div
@@ -771,7 +751,7 @@ function Contact() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const subject = encodeURIComponent(`Portfolio inquiry from ${form.name || "Visitor"}`);
+    const subject = encodeURIComponent(`${contactData.emailSubjectPrefix} ${form.name || "Visitor"}`);
     const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`);
 
     window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
@@ -795,8 +775,8 @@ function Contact() {
         className="absolute right-0 top-0 hidden h-full w-[32%] lg:block"
       >
         <motion.img
-          src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80"
-          alt="Workspace"
+          src={contactData.image}
+          alt={contactData.imageAlt}
           loading="lazy"
           whileHover={{ scale: 1.06 }}
           transition={{ duration: 0.8 }}
@@ -806,10 +786,8 @@ function Contact() {
 
       <div className="relative mx-auto grid w-full max-w-screen-2xl gap-8 px-4 py-12 sm:px-5 lg:grid-cols-[0.72fr_1.28fr] lg:px-8 lg:py-14">
         <motion.div variants={fadeLeft} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">Let's Connect</p>
-          <h2 className="font-serif text-3xl leading-tight text-[#211f1a] lg:text-[38px]">
-            Have a project in mind? <br /> Let’s build something amazing together.
-          </h2>
+          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#a78d67] sm:text-[11px]">{contactData.label}</p>
+          <h2 className="font-serif text-3xl leading-tight text-[#211f1a] lg:text-[38px]">{contactData.title}</h2>
 
           <div className="mt-7 space-y-4 text-sm text-[#5f574d]">
             <motion.p whileHover={{ x: 8 }} className="flex items-center gap-3">
@@ -852,7 +830,7 @@ function Contact() {
               value={form.name}
               onChange={handleChange}
               className="h-12 rounded-md border border-[#e9e2d7] bg-white px-4 text-sm outline-none transition focus:border-[#a78d67]"
-              placeholder="Your Name"
+              placeholder={contactData.namePlaceholder}
               required
             />
             <motion.input
@@ -862,7 +840,7 @@ function Contact() {
               value={form.email}
               onChange={handleChange}
               className="h-12 rounded-md border border-[#e9e2d7] bg-white px-4 text-sm outline-none transition focus:border-[#a78d67]"
-              placeholder="Email Address"
+              placeholder={contactData.emailPlaceholder}
               required
             />
           </div>
@@ -873,7 +851,7 @@ function Contact() {
             value={form.message}
             onChange={handleChange}
             className="mt-4 h-32 w-full resize-none rounded-md border border-[#e9e2d7] bg-white px-4 py-4 text-sm outline-none transition focus:border-[#a78d67]"
-            placeholder="Your Message"
+            placeholder={contactData.messagePlaceholder}
             required
           />
 
@@ -883,7 +861,7 @@ function Contact() {
             whileTap={{ scale: 0.96 }}
             className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#151412] text-sm font-semibold text-white transition hover:bg-[#2a2824]"
           >
-            Send Message <ArrowRight size={16} />
+            {contactData.buttonText} <ArrowRight size={16} />
           </motion.button>
         </motion.form>
       </div>
@@ -900,10 +878,10 @@ function Footer() {
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           className="font-serif text-xl text-white"
         >
-          K.
+          {site.logoInitial}
         </motion.p>
-        <p>© 2026 Kushal Poudel. All rights reserved.</p>
-        <p>Built with React & Tailwind CSS</p>
+        <p>{site.footerCopyright}</p>
+        <p>{site.footerCredit}</p>
       </div>
     </footer>
   );
@@ -918,6 +896,7 @@ export default function App() {
       <About />
       <TechStack />
       <Projects />
+      <Blogs />
       <Experience />
       <Contact />
       <Footer />
